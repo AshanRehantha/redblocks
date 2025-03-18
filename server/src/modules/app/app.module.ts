@@ -22,6 +22,7 @@ import { CpuMonitorService } from 'src/helpers/common/CupMonitorService';
 import { AppQueryBuilder } from 'src/helpers/common/queryBuilder/appQueryBuilder';
 import { TaskModule } from '../task/task.module';
 import { PusherService } from 'src/helpers/common/pusher/pusherService';
+import { ChatModule } from '../websocket/websocker.module';
 
 
 @Module({
@@ -36,7 +37,7 @@ import { PusherService } from 'src/helpers/common/pusher/pusherService';
       useFactory: async (loggerService: LoggerService) => {
         const dataSource = new DataSource({
           type: 'postgres',
-          host: '172.22.0.2',
+          host: '172.22.0.3',
           port: 5432,
           username: 'postgres',
           password: 'postgres',
@@ -47,7 +48,7 @@ import { PusherService } from 'src/helpers/common/pusher/pusherService';
         await dataSource.initialize();
         return {
           type: 'postgres',
-          host: '172.22.0.2',
+          host: '172.22.0.3',
           port: 5432,
           username: 'postgres',
           password: 'postgres',
@@ -91,6 +92,7 @@ import { PusherService } from 'src/helpers/common/pusher/pusherService';
     ApmModule,
     LoggerModule,
     TaskModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService, CpuMonitorService, AppQueryBuilder, PusherService],

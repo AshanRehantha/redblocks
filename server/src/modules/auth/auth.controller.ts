@@ -68,20 +68,23 @@ export class AuthController {
         }
    }
 
-    @Post('pusher/auth')
-    async pusherAuth(@Body() body: any, @Request() req: any) {
-    const socketId = body.socket_id;
-    const channel = body.channel_name;
-    
-    const userId = req.user?.id;
-    
-    if (channel === `private-user-${userId}`) {
-        const auth = this.pusherService.authenticate(socketId, channel);
-        return auth;
-    }
-    
-    throw new UnauthorizedException('Not authorized to subscribe to this channel');
-    }
+   @Public() 
+   @UseFilters(HttpExceptionFilter)
+   @Post('pusher/auth')
+   async pusherAuth(@Body() body: any, @Request() req: any) {
+       const socketId = body.socket_id;
+       const channel = body.channel_name;
+       
+       try {
+           // Get authentication response from Pusher
+           const authResponse = this.pusherService.authenticate(socketId, channel);
+           
+           // Return with status 200 explicitly (not 201)
+           return authResponse;
+       } catch (error) {
+           throw new UnauthorizedException('Not authorized to subscribe to this channel');
+       }
+   }
 
     
 
