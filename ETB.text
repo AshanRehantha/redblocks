@@ -1,0 +1,13 @@
+Estimated Time Breakdown:
+
+Project Setup: 16 hours
+Module Creation: 15 hours
+React UI & State Management Configuration: 5 hours
+Total Estimated Time: 36 hours
+
+
+Challenges Encountered:
+
+Working with PostgreSQL: This was my first time working with PostgreSQL, which required a bit of a learning curve to understand its syntax and configuration within the project.
+
+Pusher Configuration: Setting up Pusher for real-time notifications also posed some challenges, especially with configuring and integrating it smoothly into the system.

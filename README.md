@@ -23,7 +23,7 @@ Follow the steps below to set up the project:
 First, clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/AshanRehantha/redblocks
 cd todo-app
 docker-compose up -d
 
