@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, Response, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Request, Response, UnauthorizedException, UseFilters, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/auth.dto';
 import { Public } from 'src/helpers/decorators/public.decorator';
@@ -35,6 +35,10 @@ export class AuthController {
         expires: new Date("2100-12-31"),
     });
 
+    await this.pusherService.trigger(`private-user-${request.user.id}`, 'user-logged-in', {
+        message: 'User logged in successfully',
+      });
+
     return {
         data:{'bearer_token': token},
         statusCode:200,
@@ -64,50 +68,21 @@ export class AuthController {
         }
    }
 
-   @UseFilters(HttpExceptionFilter)
-   @Post("/pusher-auth")
-   async pusherAuth(
-       @Request() request: any,
-       @Body() body: any
-   ): Promise<any> {
-       // Extract user from request (based on your auth setup)
-       const user = request.user;
-       
-       if (!user) {
-           return {
-               status: 'error',
-               statusCode: 403,
-               message: 'Unauthorized'
-           };
-       }
-       
-       // Add guards to check if the necessary parameters exist
-       console.log('body', body);
-       
-       const socketId = body.socket_id;
-       const channel = body.channel_name;
-       
-       if (!socketId || !channel) {
-           return {
-               status: 'error',
-               statusCode: 400,
-               message: 'Missing socket_id or channel_name in the request body'
-           };
-       }
-       
-       // Now we can safely check the channel name
-       if (channel.startsWith('private-user-') && channel === `private-user-${user.id}`) {
-           // Authorize the channel
-           const authResponse = this.pusherService.authorizeChannel(socketId, channel);
-           return authResponse;
-       }
-       
-       return {
-           status: 'error',
-           statusCode: 403,
-           message: 'Channel authorization failed'
-       };
-   }
+    @Post('pusher/auth')
+    async pusherAuth(@Body() body: any, @Request() req: any) {
+    const socketId = body.socket_id;
+    const channel = body.channel_name;
+    
+    const userId = req.user?.id;
+    
+    if (channel === `private-user-${userId}`) {
+        const auth = this.pusherService.authenticate(socketId, channel);
+        return auth;
+    }
+    
+    throw new UnauthorizedException('Not authorized to subscribe to this channel');
+    }
 
+    
 
 }

@@ -7,10 +7,12 @@ import UserList from './UserList';
 import { useDispatch, useSelector } from 'react-redux';
 import { userGetDetailsRequest } from '../../redux/actions';
 import UserAnalytics from './UserAnalytice';
+import { usePusher } from '../Pusher/PusherListener';
 
 const DashBoardWrapper = () => {
 
     const dispatch = useDispatch();
+    usePusher();
 
     const {  usersDetails } = useSelector((state) => {
         return {

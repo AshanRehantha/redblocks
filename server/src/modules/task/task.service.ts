@@ -114,6 +114,11 @@ export class TaskService {
                 throw new HttpException({error:"System Error",error_code:2025031804}, HttpStatus.BAD_REQUEST);
             }
             await queryRunner.commitTransaction();
+            await this.pusherService.trigger(
+                `private-user-${userId}`,
+                'task-created',
+                { message: `Task '${payload.taskName}' has been created successfully.` }
+              );
             return this.returnRequest.successRequest(SUCCESS_MESSAGES.SUCCESS_USER_CREATE);
         }catch (error) 
         {

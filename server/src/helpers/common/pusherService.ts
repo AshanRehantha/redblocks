@@ -19,6 +19,7 @@ export class PusherService {
     await this.pusher.trigger(channel, event, data);
   }
 
+  // Add this method for private channel authentication
   authenticate(socketId: string, channel: string) {
     return this.pusher.authenticate(socketId, channel);
   }
