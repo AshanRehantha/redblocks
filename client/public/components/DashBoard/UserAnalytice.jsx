@@ -46,9 +46,11 @@ const UserAnalytics = () => {
         setPriorityFilter(value);
       };
 
-      const filteredTaskList = priorityFilter
+      let filteredTaskList = priorityFilter
       ? taskList.filter((task) => task.priority.toLowerCase() === priorityFilter.toLowerCase())
       : taskList;
+
+      filteredTaskList = filteredTaskList.sort((a, b) => (a.status === 'done' ? 1 : -1));
 
   return (
     <React.Fragment>
@@ -69,7 +71,7 @@ const UserAnalytics = () => {
             {filteredTaskList?.length !== 0 &&
                 <TableBody>
             {filteredTaskList?.map?.((list, index) => (
-                <TableRow negative={list?.priority?.toLowerCase() === 'high'} positive={list?.priority?.toLowerCase() === 'low'} key={index}>
+                <TableRow  positive={list?.status === 'done'} key={index}>
                     <TableCell>{list?.taskName}</TableCell>
                     <TableCell>{list?.taskDescription}</TableCell>
                     <TableCell>{list?.status}</TableCell>
