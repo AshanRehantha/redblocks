@@ -43,7 +43,6 @@ CREATE TABLE users_master (
     email VARCHAR(100) NOT NULL UNIQUE,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    designation VARCHAR(255) NOT NULL,
     department INT NOT NULL,
     is_first_time_login INT not null,
     contact_number VARCHAR(255) NOT NULL
@@ -105,4 +104,56 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 ALTER TABLE tasks ADD CONSTRAINT tasks_fk FOREIGN KEY (user_id) REFERENCES users_master(id) ON UPDATE CASCADE;
+
+CREATE TABLE IF NOT EXISTS app_modules (
+    id SERIAL PRIMARY KEY,
+    module_name VARCHAR(50),
+    module_description VARCHAR(250)
+);
+
+CREATE TABLE IF NOT EXISTS app_modules_actions (
+    id SERIAL PRIMARY KEY,
+    action_name VARCHAR(50),
+    action_description VARCHAR(250)
+);
+
+CREATE TABLE IF NOT EXISTS app_permission (
+    id SERIAL PRIMARY KEY,
+    module_id INT NOT NULL,
+    action_id INT NOT NULL,
+    user_id INT NOT NULL
+);
+
+ALTER TABLE app_permission ADD CONSTRAINT app_permission_fk FOREIGN KEY (module_id) REFERENCES app_modules(id) ON UPDATE CASCADE;
+ALTER TABLE app_permission ADD CONSTRAINT app_permission_action_fk FOREIGN KEY (action_id) REFERENCES app_modules_actions(id) ON UPDATE CASCADE;
+ALTER TABLE app_permission ADD CONSTRAINT app_permission_user_fk FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE;
+
+CREATE TABLE app_user_types (
+  id SERIAL PRIMARY KEY,
+  name varchar(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id SERIAL PRIMARY KEY,
+    task_name VARCHAR(200) NOT NULL,
+    task_description VARCHAR(200) NOT NULL,
+    priority INT NOT NULL,
+    due_date DATE NOT NULL,
+    user_id INT NOT NULL
+);
+
+ALTER TABLE tasks ADD CONSTRAINT tasks_fk FOREIGN KEY (user_id) REFERENCES users_master(id) ON UPDATE CASCADE;
+
+CREATE TABLE IF NOT EXISTS app_priority (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS app_status (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+ALTER TABLE tasks ADD CONSTRAINT tasks_status_fk FOREIGN KEY (status) REFERENCES app_status(id);
+
 

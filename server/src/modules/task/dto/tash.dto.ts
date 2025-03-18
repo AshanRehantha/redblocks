@@ -91,3 +91,9 @@ export class TaskDeleteResponseDto {
         Object.assign(this, partial);
     }
 }
+
+export class TaskUpdateDto {
+    @IsNotEmpty({message: "task id is require"})
+    taskId: number;
+
+}

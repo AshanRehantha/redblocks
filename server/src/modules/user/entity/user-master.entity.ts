@@ -26,9 +26,6 @@ export class UserMaster {
     @Column({name:'is_first_time_login'})
     firstTimeLogin: number;
 
-    @Column({name:'designation'})
-    designation: number;
-
     @Column({name:'department'})
     department: string;
 

@@ -3,7 +3,7 @@ import { HttpExceptionFilter } from 'src/helpers/filters/http-exception.filter';
 import { PermissionGuard } from 'src/helpers/guard/permission.guard';
 import { TASK_CREATE_PERMISSION, TASK_LIST_PERMISSION} from 'src/helpers/common/constants';
 import { TaskService } from './task.service';
-import { TaskCreateDto, TaskCreateResponseDto, TaskDeleteDto, TaskDeleteResponseDto, TaskListDto, UserTaskListDto } from './dto/tash.dto';
+import { TaskCreateDto, TaskCreateResponseDto, TaskDeleteDto, TaskDeleteResponseDto, TaskListDto, TaskUpdateDto, UserTaskListDto } from './dto/tash.dto';
 import { Common } from 'src/helpers/decorators/common.decorator';
 
 @Controller('task')
@@ -59,6 +59,16 @@ export class TaskController {
         @Body() params: UserTaskListDto,
     ): Promise<any> {
         return await this.taskService.userTaskList(request, params);
+   }
+
+   @Common()
+   @UseFilters(HttpExceptionFilter)
+   @Post("/user-update-task")
+    async userUpdate(
+        @Request() request:any,
+        @Body() params: TaskUpdateDto,
+    ): Promise<any> {
+        return await this.taskService.updateTask(request, params);
    }
 }
 

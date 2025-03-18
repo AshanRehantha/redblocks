@@ -30,6 +30,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
         const token = request?.cookies?.["auth-token"] || 
                       request?.headers?.authorization?.split(" ")[1];
+
+                      
         if (!token) {
             throw new UnauthorizedException('Token not found');
         }

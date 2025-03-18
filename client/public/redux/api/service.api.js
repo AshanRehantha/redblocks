@@ -17,9 +17,6 @@ export const ServiceCallBase = {
       if (!response.ok) {
         const errorData = await response.json(); 
 
-        console.log('response', response);
-        
-
         if(response.status === 401) {
           throw {
             status: 401,
@@ -41,8 +38,6 @@ export const ServiceCallBase = {
     } catch (error) {
 
       removeStoreCookies();
-      window.location.href = "http://0.0.0.0:9193/"
-
 
       if (!(error instanceof Object)) {
         throw { message: 'An unknown error occurred', error };

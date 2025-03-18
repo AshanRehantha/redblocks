@@ -16,7 +16,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
   },
   "include": ["server/src/**/*.ts", "server/src/modules/user/entity/user-master.entity"],
   "exclude": ["node_modules", "server/dist"]

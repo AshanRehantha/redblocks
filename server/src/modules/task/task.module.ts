@@ -8,6 +8,7 @@ import { AppQueryBuilder } from 'src/helpers/common/queryBuilder/appQueryBuilder
 import { UserMaster } from '../user/entity/user-master.entity';
 import { AppPriority } from '../app/entity/app.priority.entity';
 import { AppStatus } from '../app/entity/app.status.entity';
+import { PusherService } from 'src/helpers/common/pusher/pusherService';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { AppStatus } from '../app/entity/app.status.entity';
   ]),
   ],
   controllers: [TaskController],
-  providers: [TaskService, ReturnRequest, AppQueryBuilder]
+  providers: [TaskService, ReturnRequest, AppQueryBuilder, PusherService]
 })
 export class TaskModule {}

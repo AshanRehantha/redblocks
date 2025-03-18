@@ -62,7 +62,11 @@ async function bootstrap() {
   const host = configService.get<string>("HOST");
 
   app.enableCors({
-    origin: configService.get<string>("CORS_OPTIONS_ORIGIN").split(","),
+    origin: [
+      'http://localhost:8787', 
+      'http://0.0.0.0:8787',
+      // If you're accessing with the machine's IP address, you might need to add that too
+    ],
     methods: configService.get<string>("CORS_OPTIONS_METHODS"),
     allowedHeaders: configService.get<string>("CORS_OPTIONS_ALLOW_HEADERS"),
     credentials: true,

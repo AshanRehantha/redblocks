@@ -1,0 +1,213 @@
+* {
+  padding: 0;
+  margin: 0;
+  @include default-font(300, .9rem);
+}
+:root {
+  font-size: 16px;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  background: $sherbet;
+}
+
+
+h1, h2, h3, h4 {
+  @include default-header-font(400);
+}
+
+.dashboard-layout {
+  display: flex;
+
+  .main-layout {
+    flex-grow: 1;
+    max-height: 100vh;
+    height: 100vh;
+    //padding: 20px;
+  }
+  .child-layout{
+    padding: 20px;
+    margin-left: 300px;
+    transition: all 0.5s ease;
+  }
+  .child-layout-toggle {
+    padding: 20px;
+    margin-left: 300px;
+    transition: all 0.5s ease;
+    width: 90%;
+  }
+}
+
+// Loader.scss
+$loader-background: rgba(255, 255, 255, 0.8); // Background color with transparency
+$spinner-color: #3498db; // Spinner color
+$spinner-size: 50px; // Spinner size
+$animation-duration: 1s; // Animation duration
+
+.loader {
+  position: fixed; // Fix to viewport
+  top: 0;
+  left: 0;
+  width: 100vw; // Full width
+  height: 100vh; // Full height
+  background-color: $loader-background; // Background color
+  display: flex; // Flexbox for centering
+  justify-content: center; // Center horizontally
+  align-items: center; // Center vertically
+  z-index: 9999; // Ensure it’s above other content
+
+  .spinner {
+    width: $spinner-size;
+    height: $spinner-size;
+    border: 8px solid rgba(255, 255, 255, 0.3); // Light border
+    border-top: 8px solid $spinner-color; // Color for the top
+    border-radius: 50%; // Make it circular
+    animation: spin $animation-duration linear infinite; // Spin animation
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sb-main-modal {
+  @include fnt-dmsans(400, 1rem);
+
+  .modal-header {
+      border-bottom: none !important;
+      @include fnt-dmsans(400, 1rem);
+      text-align: center;
+      padding-top: 0.5rem;
+
+      &::after {
+          content: "";
+          background: $white;
+          right: -9px;
+          top: -12px;
+          width: 35px;
+          height: 35px;
+          position: absolute;
+          border-radius: 100%;
+          border: 1px solid $input-gray;
+      }
+  }
+
+  .modal-content {
+      @include border-radius(20px);
+      padding: 1.21rem;
+  }
+
+  .btn-close {
+      position: absolute;
+      top: -1px;
+      right: 1.8px;
+      opacity: 1;
+      z-index: 1;
+      filter: opacity(0.5);
+      font-size: 13px;
+  }
+}
+
+.message-box{
+  padding: 25px !important;
+}
+.message-box_icon{
+    margin-bottom: 27px !important;
+  }
+
+.message-box_text{
+    font-size: 1.1em;
+  } 
+.header-page-name{
+  font-size: 1.3em;
+  font-weight: 600;
+}  
+.header-page-name::first-letter {
+  text-transform: uppercase;
+}
+.primary-card{
+  background-color: #003580 ;
+}
+.hms-card {
+
+  &__primary{
+    background-color: $light-blue !important;
+  }
+
+  &__success{
+    background-color: $success-color !important;
+  }
+
+  &__error{
+    background-color: $error-color !important;
+  }
+
+  &__fonts{
+    color: $white !important;
+  }
+
+  &__icons{
+    float:right;
+    color: $white !important;
+    font-size: x-large;
+  }
+}
+.sub-header{
+
+  &__h1 {
+    font-size:2em;
+  } 
+
+  &__h2 {
+    font-size:1.5em;
+  } 
+}
+.com-grid{
+  margin-top: 40px !important;
+}
+.button-container {
+  text-align: right !important;
+  border: none !important;
+}
+.Buttontext {
+  display: inline-block; /* or block if preferred */
+}
+
+.Buttontext::first-letter {
+  text-transform: capitalize;
+}
+.datepicker-full-width{
+  width: 100% !important;
+}
+.narrow-cell {
+  width: 50px;
+}
+.first-letter-upercase::first-letter {
+  text-transform: capitalize;
+}
+.drawer{
+  padding-top: 30px !important;
+}
+
+.ui.grid > .column:not(.row) {
+  padding: 5px !important;  /* Reduce padding */
+  border-radius: 10px; /* Add border radius */
+}
+.custom-segment {
+  border-radius: 10px !important;
+}
+

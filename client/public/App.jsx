@@ -1,8 +1,18 @@
 import React from 'react'
+import SystemRouters from './routers/SystemRouters';
+import { UiErrorMessageModal, UiSuccessMessageModal } from './common/MessageModal';
+import Loader from './common/Loader';
 
-export const App = () => {
+const App = () => {
   return (
-    <div>App</div>
+    <React.Fragment>
+      <UiSuccessMessageModal/>
+      <UiErrorMessageModal/>
+      <Loader/>
+      <SystemRouters/>
+    </React.Fragment>
   )
 }
+
+export default App;
 

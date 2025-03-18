@@ -8,7 +8,8 @@ import 'semantic-ui-css/semantic.min.css'
 import 'rsuite/dist/rsuite.min.css';
 import './styles/styles.scss';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { App } from './App';
+import App from './App';
+
 const root = ReactDOM.createRoot(document.getElementById('app'));
 
 root.render(

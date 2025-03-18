@@ -39,9 +39,6 @@ export class UserCreateDto {
 
     @IsNotEmpty({message: "department is require"})
     department: number;
-
-    @IsNotEmpty({message:"designation is require"})
-    designation: string
 }
 
 
@@ -195,4 +192,41 @@ export class GetPermissionDto {
 export class GetModulesDto {
     @IsOptional()
     pageName:string;
+}
+
+export class GetUserDto {
+    @IsOptional()
+    pageName:string;
+}
+export class DeleteEmployeesDto {
+    @IsNotEmpty()
+    id:string;
+
+}
+
+export class DeleteEmployeesServiceResponseDto {
+    @IsNotEmpty()
+    responseCode: string;
+
+    @IsNotEmpty()
+    status: string;
+
+    @IsNotEmpty()
+    message: string;
+
+    @IsArray()
+    data: [];
+}
+
+export class DeleteEmployeesResponseDto {
+    @ValidateNested()
+    @Type(() => DeleteEmployeesServiceResponseDto)
+    data: DeleteEmployeesServiceResponseDto;
+
+    @IsNotEmpty()
+    status: string;
+
+    constructor(partial: Partial<DeleteEmployeesResponseDto>){
+        Object.assign(this, partial);
+    }
 }

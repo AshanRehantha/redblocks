@@ -23,6 +23,30 @@ export function removePendingActions(payload) {
     };
 }
 
+
+export const connectPusher = channelName => {
+    return {
+        type: commonConstants.PUSHER_CONNECT,
+        channelName,
+    };
+};
+
+export const disconnectPusher = payload => {
+    return {
+        type: commonConstants.PUSHER_DISCONNECT,
+        payload,
+    };
+};
+
+export const receivePusherEvent = event => {
+    return {
+        type: commonConstants.PUSHER_EVENT_RECEIVED,
+        event,
+    };
+};
+  
+
+
 export function hideError(code) {
     return {
         type: commonConstants.HIDE_ERROR_SERVER_MESSAGE,

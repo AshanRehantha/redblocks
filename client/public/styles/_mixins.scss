@@ -1,0 +1,218 @@
+//fonts
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;0,400;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;0,400;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('./fonts/Oswald-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('./fonts/RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    src: url('./fonts/RobotoFlex-VariableFont_GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+$fnt-dmsans-regular: 'DM Sans', sans-serif;
+$fnt-poppins-regular: 'Poppins', sans-serif;
+
+$oswald: 'Oswald', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$robotoflex: "Roboto Flex";
+
+
+@mixin fnt-dmsans($weight, $size) {
+    font-family: $fnt-dmsans-regular;
+    font-weight: $weight;
+    font-size: $size;
+}
+
+@mixin fnt-poppins($weight, $size) {
+    font-family: $fnt-poppins-regular;
+    font-weight: $weight;
+    font-size: $size;
+}
+
+@mixin default-font($weight, $size) {
+    font-family: $robotoflex;
+    font-weight: $weight;
+    font-size: $size;
+}
+
+@mixin default-header-font($weight) {
+    font-family: $robotoflex;
+    font-weight: $weight;
+}
+
+@mixin menu-font($weight, $size) {
+    font-family: $oswald;
+    font-weight: $weight;
+    font-size: $size;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+}
+
+@mixin def-button($background,$color,$fontSize,$minHeight,$paddingLeft,$paddingRight,$paddingTop,$paddingBottom) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:$paddingLeft;
+    padding-right:$paddingRight;
+    padding-top:$paddingTop;
+    padding-bottom:$paddingBottom;
+    gap: 10px;
+    background: $background;
+    border-radius: 10px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: none;
+    color: $color;
+    font-size: $fontSize;
+    min-height: $minHeight;
+    transition: 0.5s;
+}
+
+@mixin box-shadow($shadow...) {
+    -webkit-box-shadow: $shadow;
+       -moz-box-shadow: $shadow;       
+            box-shadow: $shadow;
+}
+
+@mixin placeholder
+{
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}  
+}
+
+$breakpoint-ip-5: 353px;
+$breakpoint-xs: 400px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 767px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1199px;
+$breakpoint-laptop:1365px;
+$breakpoint-xxl: 1400px;
+
+
+@mixin desktop {
+    @media (min-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin min-width-1200 {
+    @media (min-width: $breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin max-width-992 {
+    @media (max-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin max-width-1200 {
+    @media (max-width: $breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: $breakpoint-md) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $breakpoint-sm) {
+        @content;
+    }
+}
+
+@mixin min-width-768 {
+    @media (min-width: $breakpoint-md) {
+        @content;
+    }
+}
+@mixin min-width-768-max-width-992 {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin min-width-992-max-width-1200 {
+    @media (min-width: $breakpoint-lg) and (max-width: $breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin extra-small-device{
+    @media (max-width:$breakpoint-xs){
+        @content;
+    }
+}
+
+@mixin min-width-1199-max-width-1366 {
+    @media (min-width: $breakpoint-xl) and (max-width: $breakpoint-laptop) {
+        @content;
+    }
+}
+
+
+@mixin iphone5{
+    @media (max-width:$breakpoint-ip-5){
+        @content;
+    }
+}
+
+@mixin largerDevices{
+    @media (min-width:$breakpoint-xxl){
+        @content;
+    }
+}
+@mixin clearfix() {
+    &::after {
+      display: block;
+      clear: both;
+      content: "";
+    }
+  }
+
+//custom template fonts
+@font-face {
+    font-family: "nouveir-bold";
+    src: url("fonts/NouvelR-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "nouveir-regular";
+    src: url("fonts/NouvelR-Regular.ttf") format("truetype");
+}
+
+$fnt-nouveir: 'nouveir-regular', sans-serif;
+
+@mixin fnt-nouveir($weight, $size) {
+    font-family: $fnt-nouveir;
+    font-weight: $weight;
+    font-size: $size;
+}

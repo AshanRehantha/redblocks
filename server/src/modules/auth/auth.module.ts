@@ -16,6 +16,7 @@ import { AppQueryBuilder } from 'src/helpers/common/queryBuilder/appQueryBuilder
 import { AppStatus } from '../app/entity/app.status.entity';
 import { Customer } from '../user/entity/user.audit.entity';
 import { UserMaster } from '../user/entity/user-master.entity';
+import { PusherService } from 'src/helpers/common/pusher/pusherService';
 
 @Module({
   imports: [
@@ -44,6 +45,6 @@ import { UserMaster } from '../user/entity/user-master.entity';
   ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, Encryption, AppQueryBuilder]
+  providers: [AuthService, LocalStrategy, JwtStrategy, Encryption, AppQueryBuilder, PusherService]
 })
 export class AuthModule {}

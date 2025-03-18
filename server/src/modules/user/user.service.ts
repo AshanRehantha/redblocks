@@ -4,7 +4,7 @@ import { User } from '../auth/entity/auth.entity';
 import { DataSource, Repository } from 'typeorm';
 import { AppQueryBuilder } from 'src/helpers/common/queryBuilder/appQueryBuilder';
 import { Customer } from './entity/user.audit.entity';
-import { CustomerDto, EmailVerifyDto, GetModulesDto, GetPermissionDto, ResetPasswordDto, UpdatePasswordFirstTimeDto, UserCreateDto } from './dto/user.dto';
+import { CustomerDto, DeleteEmployeesDto, EmailVerifyDto, GetModulesDto, GetPermissionDto, ResetPasswordDto, UpdatePasswordFirstTimeDto, UserCreateDto } from './dto/user.dto';
 import { APP_MODULE_DASHBOARD_NAME, APP_STATUS_ACTIVE, APP_USER_AUTH_TYPE_CHANGED_PASSWORD, APP_USER_AUTH_TYPE_FIRST_TIME_LOGIN, APP_USER_AUTH_TYPE_PASSWORD_RESET, APP_USER_TYPE_SUPER_ADMIN, APP_USER_TYPE_USER, ERROR_MESSAGES, GLOBAL_DATE_TIME, LOGGER_TYPES, SUCCESS_MESSAGES } from 'src/helpers/common/constants';
 import { AppStatus } from '../app/entity/app.status.entity';
 import { Encryption } from 'src/helpers/common/encrypet/encrypte';
@@ -102,6 +102,60 @@ export class UserService {
             };
             throw new HttpException(errorResponse, HttpStatus.BAD_REQUEST);
         }
+   }
+
+   async getUserList(request:any, payload:GetModulesDto): Promise<any> {
+    try{
+        let list = await this.appData.findAllByWithRelations(this.userMasterRepository, [], []);
+        return this.returnRequest.successRequest(list);
+    }catch (error) {
+        throw new HttpException({error:"System Error",error_code:2025031807}, HttpStatus.BAD_REQUEST);
+    }
+   }
+
+   async deleteUsers(request:any, payload:DeleteEmployeesDto): Promise<any> {
+            let queryRunner = this.dataSource.createQueryRunner();
+            await queryRunner.connect();
+            await queryRunner.startTransaction();
+    
+            try{
+                const deleteUserTable = await queryRunner.manager.delete(User, {user_id: payload?.id});
+                if(deleteUserTable.affected === 0){
+                    throw new HttpException({error:"No task Id found",error_code:2025031810}, HttpStatus.BAD_REQUEST);
+                }
+                const deleteResult = await queryRunner.manager.delete(UserMaster, {id: payload?.id});
+                if(deleteResult.affected === 0){
+                    throw new HttpException({error:"No task Id found",error_code:2025031810}, HttpStatus.BAD_REQUEST);
+                }
+                await queryRunner.commitTransaction();
+                return this.returnRequest.successRequest(SUCCESS_MESSAGES.SUCCESS_DELETE_EMPLOYEES);
+            }catch (error) {      
+                await queryRunner.rollbackTransaction();
+                if (error instanceof HttpException) {
+                    throw error;
+                }
+                throw new HttpException({error:"System Error",error_code:2025031808}, HttpStatus.BAD_REQUEST);
+            }finally{
+                await queryRunner.release();
+            }
+   }
+
+   async getUserDetails(request:any, payload:any):Promise<any> {
+            const users = await this.userMasterRepository
+            .createQueryBuilder('userMaster')
+            .innerJoinAndSelect('userMaster.user', 'user')
+            .where('userMaster.id = :userId', { userId: request?.user?.user?.userId })
+            .getMany();
+
+            const response = {
+                userName: users[0].userName,
+                firstName: users[0].firstName,
+                lastName: users[0].lastName,
+                department: users[0].department,
+                userType: users[0].user?.userType,
+            }
+
+            return this.returnRequest.successRequest(response);
    }
 
    private groupByMapper(permission: any){ 

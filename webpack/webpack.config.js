@@ -6,7 +6,7 @@ const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 require('dotenv').config({ path: path.resolve(__dirname, '../config/.env') });
 
 const BUILD_DIR = path.resolve(__dirname, '../client/dist/');
-const APP_DIR = path.resolve(__dirname, '../client/public');
+const APP_DIR = path.resolve(__dirname, '../client/public/');
 
 module.exports = {
   mode: 'development',
@@ -100,6 +100,11 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
       hash: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env.HRMS_SERVICE_BASEURL': JSON.stringify(
+        process.env.HRMS_SERVICE_BASEURL
+      ),
     }),
   ],
 

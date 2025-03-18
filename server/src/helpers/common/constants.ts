@@ -3,6 +3,7 @@ export const APP_STATUS_INACTIVE = 'inactive';
 
 export const APP_USER_TYPE_SUPER_ADMIN = 'super_admin';
 export const APP_USER_TYPE_USER = 'user';
+export const APP_STATUS_DONE = 'done';
 
 
 export const APP_USER_AUTH_TYPE_FIRST_TIME_LOGIN = 'First_Time_Login';
@@ -30,6 +31,8 @@ export const CONFIGURATION_TEAM_ADD = 'configuration/team/add';
 export const CONFIGURATION_TEAM_VIEW_LIST = 'configuration/team/list';
 export const CONFIGURATION_HOLIDAY_CALENDER_ADD = 'configuration/holiday_calender/add';
 export const USER_CREATE_PERMISSION = 'user/add';
+export const USER_GET_LIST_PERMISSION = 'user/list';
+export const USER_DELETE_PERMISSION = 'user/delete';
 export const TASK_CREATE_PERMISSION = 'task/add';
 export const TASK_LIST_PERMISSION = 'task/list';
 export const TASK_DELETE_PERMISSION = 'task/delete';
@@ -77,4 +80,6 @@ export const ERROR_MESSAGES = {
   export const SUCCESS_MESSAGES = {
     SUCCESS_USER_CREATE: 'User create successfully',
     SUCCESS_DELETE_TASKS: 'Tasks delete successfully',
+    SUCCESS_DELETE_EMPLOYEES: 'Employees delete successfully',
+    SUCCESS_UPDATE_TASK_STATUS: 'Task update successfully',
   };

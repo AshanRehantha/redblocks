@@ -1,12 +1,17 @@
 'use strict';
 
-import { userConstants } from '../constants';
+import { commonConstants, userConstants } from '../constants';
 
 export const INITIAL_USER_STATE = {
   userDetails: {},
   userPermission:{},
   userPermissionModule:[],
-  user:{}
+  user:{},
+  taskList:[],
+  employeeList:[],
+  events: [],
+  usersDetails:{},
+  userTaskList:[],
 };
 
 const mapDataToMenu = (data) => {
@@ -73,6 +78,40 @@ export function user(state = INITIAL_USER_STATE, action) {
         ...state,
         user: action.payload,
       };
+
+    case userConstants.USER_GET_ANALYTICS_SUCCESS:
+      return {
+        ...state,
+        taskList: action.payload,
+      };
+      
+     case userConstants?.USER_GET_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        employeeList: action.payload,
+      };
+
+
+      case userConstants.USERS_GET_DETAILS_SUCCESS:
+        return {
+          ...state,
+          usersDetails: action.payload,
+        };
+
+        case userConstants.USERS_GET_USER_TASK_LIST_SUCCESS:
+          return {
+            ...state,
+            userTaskList: action.payload,
+          };
+  
+
+
+    case commonConstants.PUSHER_EVENT_RECEIVED:
+      return {
+        ...state,
+        events: [...state.events, action.payload],
+      }; 
+
   }
   return state;
 }

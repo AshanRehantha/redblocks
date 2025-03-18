@@ -21,6 +21,7 @@ import { LoggerService } from 'src/helpers/logger/logger.service';
 import { CpuMonitorService } from 'src/helpers/common/CupMonitorService';
 import { AppQueryBuilder } from 'src/helpers/common/queryBuilder/appQueryBuilder';
 import { TaskModule } from '../task/task.module';
+import { PusherService } from 'src/helpers/common/pusher/pusherService';
 
 
 @Module({
@@ -35,7 +36,7 @@ import { TaskModule } from '../task/task.module';
       useFactory: async (loggerService: LoggerService) => {
         const dataSource = new DataSource({
           type: 'postgres',
-          host: '172.22.0.3',
+          host: '172.22.0.2',
           port: 5432,
           username: 'postgres',
           password: 'postgres',
@@ -46,7 +47,7 @@ import { TaskModule } from '../task/task.module';
         await dataSource.initialize();
         return {
           type: 'postgres',
-          host: '172.22.0.3',
+          host: '172.22.0.2',
           port: 5432,
           username: 'postgres',
           password: 'postgres',
@@ -92,7 +93,9 @@ import { TaskModule } from '../task/task.module';
     TaskModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CpuMonitorService, AppQueryBuilder],
+  providers: [AppService, CpuMonitorService, AppQueryBuilder, PusherService],
+  exports:[PusherService]
+  
 })
 export class AppModule{
   constructor(private readonly dataSource: DataSource) {}
