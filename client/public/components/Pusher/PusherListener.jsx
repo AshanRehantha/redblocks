@@ -48,45 +48,34 @@ function NotificationComponent() {
         };
       }
     });
-    
-    // Debug connection state
+  
     pusher.connection.bind('state_change', (states) => {
-      console.log('Pusher connection state:', states);
     });
-    
-    // Debug connection errors
+  
     pusher.connection.bind('error', (err) => {
       console.error('Pusher connection error:', err);
     });
     
-    // Subscribe with error handling
     const channel = pusher.subscribe(`private-user-${userId}`);
     
     channel.bind('pusher:subscription_succeeded', () => {
-      console.log('Successfully subscribed to channel');
     });
     
     channel.bind('pusher:subscription_error', (error) => {
-      console.error('Subscription error:', error);
     });
-    
     channel.bind('task-created', (data) => {
-      console.log('Received task-created event:', data);
       setNotifications(prev => [...prev, {
         id: Date.now(),
         ...data,
         read: false
       }]);
-      
       if (Notification.permission === 'granted') {
         new Notification('New Task Created', {
           body: data.message
         });
       }
     });
-    
     channel.bind('task-assigned', (data) => {
-      console.log('Received task-assigned event:', data);
       setNotifications(prev => [...prev, {
         id: Date.now(),
         ...data,
