@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { userGetAnalyticsRequest, userGetUserTaskListRequest, userTaskUpdateRequest } from '../../redux/actions';
+import { userGetUserTaskListRequest, userTaskUpdateRequest } from '../../redux/actions';
 import {
     TableRow,
     TableHeaderCell,

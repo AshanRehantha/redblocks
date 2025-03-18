@@ -18,9 +18,6 @@ const DashBoardWrapper = () => {
         };
       });
 
-      console.log('usersDetails', usersDetails);
-      
-
         useEffect(() => {
             dispatch(userGetDetailsRequest({}))
         }, [dispatch]);

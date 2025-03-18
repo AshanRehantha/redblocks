@@ -1,7 +1,6 @@
 export const serviceEndPoint = {
     login: 'auth/login',
     logout: 'auth/logout',
-
     userGetModules:'users/get-modules',
     createNewUsers:'users/user-create',
     userGetAnalytics:'task/task-list',
